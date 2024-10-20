@@ -348,17 +348,17 @@ index 92ea6c3..9f626d2 100755
  <game>
    <mamename>kof96kt</mamename>
    <realname>Kof'96 (Korean Translation)</realname>
-@@ -60170,6 +60306,10 @@
-   <mamename>kof97kai</mamename>
-   <realname>Kof'97 (Plus)(Alt)</realname>
+@@ -60178,6 +60314,10 @@
+   <mamename>kof97kp1</mamename>
+   <realname>Kof'97 (KP 2000)</realname>
  </game>
 +<game>
 +  <mamename>kof97kr</mamename>
 +  <realname>The King of Fighters '97 (Korean Translation)</realname>
 +</game>
  <game>
-   <mamename>kof97kp</mamename>
-   <realname>Kof'97 (Enable 1 Hidden Character)(Orochi)</realname>
+   <mamename>kof97lb</mamename>
+   <realname>Kof'97 (Quanhuang Shaman 3.0)</realname>
 @@ -61042,6 +61182,10 @@
    <mamename>kof97tse</mamename>
    <realname>Kof'97 (TSE)</realname>
