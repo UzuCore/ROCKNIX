@@ -1089,7 +1089,7 @@ makeinstall_target() {
       add_emu_core snes mednafen snes_faust false
       add_emu_core snes mednafen snes false
     ;;
-    RK33*|RK35*|SD865)
+    RK33*|RK35*|SD865|H700)
       add_emu_core snes mednafen snes_faust false
 	;;
   esac
@@ -1115,7 +1115,7 @@ makeinstall_target() {
       add_emu_core snesh mednafen snes false
       add_emu_core snesh mednafen snes_faust false
     ;;
-    RK3*|SD865)
+    RK3*|SD865|H700)
       add_emu_core snesh mednafen snes_faust false
 	;;
   esac
@@ -1141,7 +1141,7 @@ makeinstall_target() {
       add_emu_core sfc mednafen snes false
       add_emu_core sfc mednafen snes_faust false
     ;;
-    RK3*|SD865)
+    RK3*|SD865|H700)
       add_emu_core snes mednafen snes_faust false
 	;;
   esac
