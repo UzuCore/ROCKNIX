@@ -69,15 +69,15 @@ VFS:
   Disk cache maximum size (MB): 5120
   Empty /dev_hdd0/tmp/: true
 Video:
-  Renderer: OpenGL
+  Renderer: Vulkan
   Resolution: 720x480
-  Aspect ratio: 4:3
-  Frame limit: 30
+  Aspect ratio: 16:9
+  Frame limit: Auto
   Second Frame Limit: 0
   MSAA: Auto
   Shader Mode: Async Shader Recompiler
   Shader Precision: Low
-  Write Color Buffers: true
+  Write Color Buffers: false
   Write Depth Buffer: false
   Read Color Buffers: false
   Read Depth Buffer: false
@@ -102,7 +102,7 @@ Video:
   Use full RGB output range: true
   Strict Texture Flushing: false
   Multithreaded RSX: false
-  Relaxed ZCULL Sync: true
+  Relaxed ZCULL Sync: false
   Force Hardware MSAA Resolve: false
   3D Display Mode: Disabled
   Debug Program Analyser: false
@@ -123,7 +123,7 @@ Video:
   Disable MSL Fast Math: false
   Output Scaling Mode: Bilinear
   Vulkan:
-    Adapter: Turnip Adreno (TM) 650
+    Adapter: ""
     Force FIFO present mode: false
     Force primitive restart flag: false
     Exclusive Fullscreen Mode: Automatic

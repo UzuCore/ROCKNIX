@@ -2,14 +2,14 @@
 # Copyright (C) 2026 ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="vita3k-sa"
-PKG_VERSION="5b040dc4a6373ccecfaeeaaf817ba0edb8241edd"
+PKG_VERSION="bf9612743f310a3b60c4d211e29d6828d6457ab4"
 PKG_LICENSE="GPLv2"
-PKG_SITE="https://github.com/Vita3K/Vita3K"
+PKG_SITE="https://github.com/nckstwrt/Vita3K-Plus"
 PKG_URL="${PKG_SITE}.git"
 PKG_DEPENDS_TARGET="toolchain libevdev SDL2 qt6 mesa libcom-err openssl zlib"
 PKG_LONGDESC="PS VITA Emulator"
 PKG_TOOLCHAIN="cmake"
-PKG_GIT_CLONE_BRANCH="master"
+PKG_GIT_CLONE_BRANCH="all-enhancements"
 
 PKG_PATCH_DIRS+="${DEVICE}"
 

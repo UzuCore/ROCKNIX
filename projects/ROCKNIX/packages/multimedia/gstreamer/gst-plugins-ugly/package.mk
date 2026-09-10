@@ -6,7 +6,7 @@ PKG_VERSION="$(get_pkg_version gstreamer)"
 PKG_LICENSE="LGPL-2.1-or-later"
 PKG_SITE="https://gstreamer.freedesktop.org/modules/gst-plugins-ugly.html"
 PKG_URL="https://gstreamer.freedesktop.org/src/gst-plugins-ugly/${PKG_NAME}-${PKG_VERSION}.tar.xz"
-PKG_DEPENDS_TARGET="toolchain gstreamer gst-plugins-base"
+PKG_DEPENDS_TARGET="toolchain gstreamer gst-plugins-base x264"
 PKG_LONGDESC="Good GStreamer plugins and helper libraries"
 
 PKG_MESON_OPTS_TARGET="-Dtests=disabled \

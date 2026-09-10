@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: ROCKNIX <noreply@rocknix.org>
+Date: Tue, 18 Aug 2026 00:00:00 +0900
+Subject: [PATCH] v4l2videodec: allow forcing system-memory output
+
+WineGStreamer's videoflip element cannot negotiate DMABuf-backed raw
+video from V4L2 decoders. Allow launchers to select MMAP capture buffers,
+which retain hardware decoding while exposing system-memory video.
+
+The default automatic I/O mode remains unchanged when the environment
+variable is not set.
+---
+ sys/v4l2/gstv4l2videodec.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sys/v4l2/gstv4l2videodec.c b/sys/v4l2/gstv4l2videodec.c
+index a1527c9..b9388c7 100644
+--- a/sys/v4l2/gstv4l2videodec.c
++++ b/sys/v4l2/gstv4l2videodec.c
+@@ -1324,6 +1324,9 @@ gst_v4l2_video_dec_subinstance_init (GTypeInstance * instance, gpointer g_class)
+       GST_OBJECT (GST_VIDEO_DECODER_SRC_PAD (self)),
+       V4L2_BUF_TYPE_VIDEO_CAPTURE, klass->default_device,
+       gst_v4l2_get_input, gst_v4l2_set_input, NULL);
++
++  if (g_strcmp0 (g_getenv ("GST_V4L2_CODEC_FORCE_SYSTEM_MEMORY"), "1") == 0)
++    self->v4l2capture->req_mode = GST_V4L2_IO_MMAP;
+ }
+ 
+ static void
+-- 
+2.43.0

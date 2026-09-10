@@ -7,6 +7,7 @@ PKG_SHA256="ec4c8f74942d6dff7ace8b4ce4764f0ef9ff618a935d974ea77edee2ad240b14"
 PKG_LICENSE="MIT"
 PKG_SITE="https://wayland.freedesktop.org/"
 PKG_URL="https://gitlab.freedesktop.org/wayland/${PKG_NAME}/-/releases/${PKG_VERSION}/downloads/${PKG_NAME}-${PKG_VERSION}.tar.xz"
+PKG_DEPENDS_HOST="toolchain:host wayland:host"
 PKG_DEPENDS_TARGET="toolchain wayland:host"
 PKG_LONGDESC="Specifications of extended Wayland protocols"
 

@@ -4,7 +4,7 @@
 PKG_NAME="rpcs3-sa"
 PKG_LICENSE="GPLv2"
 PKG_LONGDESC="PS3 Emulator"
-PKG_VERSION="2f4034590f261cc2aafbc10139744c68a146b5a4"
+PKG_VERSION="e67441487517c74a979e7a3a18e197489836e79d"
 PKG_SITE="https://github.com/RPCS3/rpcs3"
 PKG_URL="${PKG_SITE}.git"
 PKG_TOOLCHAIN="cmake"
@@ -22,8 +22,18 @@ pre_configure_target() {
   # llvm is linked from the sysroot, drop its build tree to free disk for rpcs3
   rm -rf "$(get_build_dir llvm)"
 
-  export CFLAGS="${CFLAGS} -DGLEW_EGL"
-  export CXXFLAGS="${CXXFLAGS} -DGLEW_EGL"
+  local CPU_TUNE_FLAGS=""
+  case "${DEVICE}" in
+    SM8250)
+      CPU_TUNE_FLAGS="-mtune=cortex-a77"
+      ;;
+    SM8750)
+      CPU_TUNE_FLAGS="-mtune=oryon-1"
+      ;;
+  esac
+
+  export CFLAGS="${CFLAGS} ${CPU_TUNE_FLAGS} -DGLEW_EGL"
+  export CXXFLAGS="${CXXFLAGS} ${CPU_TUNE_FLAGS} -DGLEW_EGL"
 
   PKG_CMAKE_OPTS_TARGET+=" -DWITH_LLVM=ON \
                            -DBUILD_LLVM=OFF \

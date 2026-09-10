@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cbcdaccd0..121372d0c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -81,8 +81,8 @@
+ option(ENABLE_DEBUG_TOOLS "Enable debugging tools (maxwell disassembler, SPIRV translator, etc)" OFF)
+ option(ENABLE_WERROR "Enable -Werror diagnostics" ON)
+ 
+-# Lossless Scaling frame generation. Only Android.
+-cmake_dependent_option(ENABLE_LSFG "Enable Lossless Scaling frame generation" ON "ANDROID" OFF)
++# Lossless Scaling frame generation. The Vulkan implementation is platform-neutral.
++option(ENABLE_LSFG "Enable Lossless Scaling frame generation" OFF)
+ 
+ # non-linux bundled qt are static
+ if (YUZU_USE_BUNDLED_QT AND (APPLE OR NOT UNIX))

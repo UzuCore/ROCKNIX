@@ -2,16 +2,16 @@ diff --git a/src/core/bios.cpp b/src/core/bios.cpp
 index efcacf94..e38c01ad 100644
 --- a/src/core/bios.cpp
 +++ b/src/core/bios.cpp
-@@ -24,7 +24,7 @@ static constexpr Hash MakeHashFromString(const char str[])
+@@ -25,7 +25,7 @@ static constexpr Hash MakeHashFromString(const char str[])
    return h;
  }
  
--static ImageInfo s_image_infos[27] = {
-+static ImageInfo s_image_infos[34] = {
+-static const ImageInfo s_image_infos[27] = {
++static const ImageInfo s_image_infos[34] = {
    {"SCPH-1000, DTL-H1000 (v1.0)", ConsoleRegion::NTSC_J, MakeHashFromString("239665b1a3dade1b5a52c06338011044"), true},
     {"SCPH-1001, 5003, DTL-H1201, H3001 (v2.2 12-04-95 A)", ConsoleRegion::NTSC_U,
      MakeHashFromString("924e392ed05558ffdb115408c263dccf"), true},
-@@ -58,6 +58,13 @@ static ImageInfo s_image_infos[27] = {
+@@ -59,6 +59,13 @@ static const ImageInfo s_image_infos[27] = {
     {"SCPH-7002, 7502, 9002 (v4.1 12-16-97 E)", ConsoleRegion::PAL,
      MakeHashFromString("b9d9a0286c33dc6b7237bb13cd46fdee"), true},
     {"SCPH-100 (v4.3 03-11-00 J)", ConsoleRegion::NTSC_J, MakeHashFromString("8abc1b549a4a80954addc48ef02c4521"), true},

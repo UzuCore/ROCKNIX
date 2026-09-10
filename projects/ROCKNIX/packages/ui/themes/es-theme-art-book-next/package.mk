@@ -3,6 +3,7 @@
 
 PKG_NAME="es-theme-art-book-next"
 PKG_VERSION="ecff478bf56c5ab64403311e13d55a35e6dacd7a"
+PKG_SHA256="4437acae55c348a0556b2c8b78c60fac5884a0443339778a48821500b963726c"
 PKG_LICENSE="CUSTOM"
 PKG_SITE="https://github.com/UzuCore/es-theme-art-book-dc"
 PKG_URL="https://github.com/UzuCore/es-theme-art-book-dc/archive/${PKG_VERSION}.tar.gz"

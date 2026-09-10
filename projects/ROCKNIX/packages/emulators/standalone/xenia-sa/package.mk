@@ -2,7 +2,7 @@
 # Copyright (C) 2026-present ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="xenia-sa"
-PKG_VERSION="60ff8616696e81726f09053874c12adc7716537f"
+PKG_VERSION="d7a868837c9863feaeb8a1a6f8fe198d036bab41"
 PKG_LICENSE="BSD-3-Clause"
 PKG_SITE="https://github.com/has207/xenia-edge"
 PKG_URL="${PKG_SITE}.git"
@@ -38,8 +38,14 @@ make_target() {
     SM8250)
       CPU_FLAGS="-march=armv8.2-a+crc+crypto -mtune=cortex-a77"
       ;;
-    SM8550|SM8650|SM8750)
-      CPU_FLAGS="-mcpu=cortex-a78 -mtune=cortex-a78"
+    SM8550)
+      CPU_FLAGS="-march=armv9-a${TARGET_CPU_FLAGS} -mtune=cortex-x3"
+      ;;
+    SM8650)
+      CPU_FLAGS="-march=armv9.2-a${TARGET_CPU_FLAGS} -mtune=cortex-x4"
+      ;;
+    SM8750)
+      CPU_FLAGS="-march=armv9.2-a${TARGET_CPU_FLAGS} -mtune=oryon-1"
       ;;
     *)
       CPU_FLAGS="-march=armv8-a -mtune=generic"

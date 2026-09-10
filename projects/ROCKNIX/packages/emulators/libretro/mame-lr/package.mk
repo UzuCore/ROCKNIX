@@ -2,9 +2,9 @@
 # Copyright (C) 2024-present ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="mame-lr"
-PKG_VERSION="24cffe763621b164fc10be2ae3660f140be25182"
-PKG_SHA256="4867bee5dbd4129e6eea095fe8f8e9725563998710cc9620190e90529ef8931b"
-PKG_LICENSE="MAME"
+PKG_VERSION="c74053599d05f7f6a88b5ba5257f999cd6d80dc7" # lrmame 0.289
+PKG_SHA256="775abf753714eec786ef8141952d76fcc1cacb94e7a4459ff0ae4ea6eb9ef4e7"
+PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/mame"
 PKG_URL="https://github.com/libretro/mame/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain zlib flac sqlite expat"

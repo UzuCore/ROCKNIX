@@ -1,0 +1,12 @@
+diff --git a/vita3k/packages/src/sfo.cpp b/vita3k/packages/src/sfo.cpp
+--- a/vita3k/packages/src/sfo.cpp
++++ b/vita3k/packages/src/sfo.cpp
+@@ -97,6 +97,8 @@
+     std::replace(app_info.app_title.begin(), app_info.app_title.end(), '\n', ' ');
+     boost::trim(app_info.app_title);
+     sfo::get_data_by_key(app_info.app_title_id, sfo_handle, "TITLE_ID");
++
++    return true;
+ }
+ 
+ bool load(SfoFile &sfile, const std::vector<uint8_t> &content) {

@@ -10,6 +10,11 @@ PKG_URL="https://code.videolan.org/videolan/x264/-/archive/${PKG_VERSION}/x264-$
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="x264 codec"
 
+# gst-plugins-ugly links the static archive without enabling LTO on its
+# linker command.  Keep both native code and LTO bytecode in the archive so
+# it remains linkable by both LTO and non-LTO consumers.
+PKG_BUILD_FLAGS="+lto-fat"
+
 if [ "${TARGET_ARCH}" = "x86_64" ]; then
   PKG_DEPENDS_TARGET+=" nasm:host"
 fi
@@ -33,6 +38,7 @@ configure_target() {
     --host="${TARGET_NAME}" \
     --prefix="/usr" \
     --sysroot="${SYSROOT_PREFIX}" \
+    --bit-depth=all \
     --disable-cli \
     --enable-lto \
     --enable-pic \

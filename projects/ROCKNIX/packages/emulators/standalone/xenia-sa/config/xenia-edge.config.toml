@@ -345,14 +345,14 @@ staging_mode = false                               # Enables preview mode in das
 
 
 [Logging]
-flush_log = true                                   # Flush log file after each log line batch.
-log_file = ""                                      # Logs are written to the given file
+flush_log = false                                  # Flush log file after each log line batch.
+log_file = "/dev/null"                             # Logs are written to the given file
 log_high_frequency_kernel_calls = false            # Log kernel calls with the kHighFrequency tag.
-log_level = 2                                      # Maximum level to be logged. (0=error, 1=warning, 2=info, 3=debug)
+log_level = 0                                      # Maximum level to be logged. (0=error, 1=warning, 2=info, 3=debug)
 log_mask = 0                                       # Disables specific categorizes for more granular debug logging. Kernel = 1, Apu = 2, Cpu = 4, Gpu = 8.
 log_string_format_kernel_calls = false             # Log usage of print formatters like sprintf.
 log_to_debugprint = false                          # Dump the log to DebugPrint.
-log_to_stdout = true                               # Write log output to stdout
+log_to_stdout = false                              # Write log output to stdout
 
 
 [Memory]

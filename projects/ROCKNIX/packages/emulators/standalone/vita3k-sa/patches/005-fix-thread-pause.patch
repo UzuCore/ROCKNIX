@@ -2,7 +2,7 @@ diff --git a/vita3k/kernel/include/kernel/state.h b/vita3k/kernel/include/kernel
 index de27351e..993e25bf 100644
 --- a/vita3k/kernel/include/kernel/state.h
 +++ b/vita3k/kernel/include/kernel/state.h
-@@ -172,7 +172,7 @@ struct KernelState {
+@@ -176,7 +176,7 @@ struct KernelState {
      ThreadStatePtr get_thread(SceUID thread_id);
      Ptr<Ptr<void>> get_thread_tls_addr(MemState &mem, SceUID thread_id, int key);
  
@@ -11,11 +11,12 @@ index de27351e..993e25bf 100644
      void pause_threads();
      void resume_threads();
  
-@@ -190,4 +190,5 @@ struct KernelState {
+@@ -199,5 +199,6 @@ struct KernelState {
  private:
      std::atomic<SceUID> next_uid{ 1 };
      std::map<SceUID, ThreadStatus> paused_threads_status;
 +    std::atomic<bool> threads_paused{ false };
+     std::vector<ThreadStatePtr> world_stopped_threads;
  };
 diff --git a/vita3k/kernel/include/kernel/thread/thread_state.h b/vita3k/kernel/include/kernel/thread/thread_state.h
 index ebd51b15..9f504cc6 100644
@@ -33,9 +34,7 @@ diff --git a/vita3k/kernel/src/kernel.cpp b/vita3k/kernel/src/kernel.cpp
 index d36f8c37..dffd3175 100644
 --- a/vita3k/kernel/src/kernel.cpp
 +++ b/vita3k/kernel/src/kernel.cpp
-@@ -199,24 +199,31 @@ void KernelState::process_exit() {
- }
- 
+@@ -227,18 +227,24 @@ void KernelState::pause_threads() {
  void KernelState::pause_threads() {
 +    threads_paused.store(true, std::memory_order_relaxed);
      const std::lock_guard<std::mutex> lock(mutex);
@@ -62,11 +61,11 @@ index d36f8c37..dffd3175 100644
      paused_threads_status.clear();
  }
  
+@@ -307,3 +315,4 @@ void KernelState::deinit(MemState &mem) {
  void KernelState::deinit(MemState &mem) {
 +    threads_paused.store(false, std::memory_order_relaxed);
      process_exit();
      threads.clear();
- 
 diff --git a/vita3k/kernel/src/thread.cpp b/vita3k/kernel/src/thread.cpp
 index cad36c03..acfc42fa 100644
 --- a/vita3k/kernel/src/thread.cpp
@@ -81,7 +80,7 @@ index cad36c03..acfc42fa 100644
      }
      waiting_threads.clear();
  }
-@@ -151,11 +150,10 @@ int ThreadState::start(SceSize arglen, const Ptr<void> argp, bool run_entry_call
+@@ -151,11 +151,10 @@ int ThreadState::start(SceSize arglen, const Ptr<void> argp, bool run_entry_callback) {
  
      if (kernel.debugger.wait_for_debugger) {
          kernel.debugger.wait_for_debugger = false;
@@ -95,10 +94,11 @@ index cad36c03..acfc42fa 100644
  
      return SCE_KERNEL_OK;
  }
-@@ -414,6 +412,11 @@ void ThreadState::update_status(ThreadStatus status, std::optional<ThreadStatus>
-     if (status == ThreadStatus::wait && delete_requested)
-         return;
- 
+@@ -759,5 +757,10 @@ void ThreadState::update_status(ThreadStatus status, std::optional<ThreadStatus> expected) {
+     if (status == ThreadStatus::run)
+         kernel.thread_wake_counter.fetch_add(1, std::memory_order_relaxed);
+-
++
 +    if (status == ThreadStatus::run && kernel.is_threads_paused()) {
 +        this->suspended_by_pause = true;
 +        status = ThreadStatus::suspend;

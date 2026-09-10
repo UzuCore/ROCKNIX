@@ -50,7 +50,7 @@ fi
 pre_configure_host() {
   unset HOST_CMAKE_OPTS
   # Disable unneeded modules
-  MODULES_TO_DISABLE=("qt3d" "qt5compat" "qtactiveqt" "qtcoap" "qtconnectivity" "qtdatavis3d"
+  MODULES_TO_DISABLE=("qt3d" "qt5compat" "qtactiveqt" "qtcharts" "qtcoap" "qtconnectivity" "qtdatavis3d"
                       "qtdoc" "qtgraphs" "qtgrpc" "qthttpserver" "qtlocation" "qtlottie" "qtmqtt"
                       "qtmultimedia" "qtnetworkauth" "qtopcua" "qtpositioning" "qtquick3d" "qtquick3dphysics"
                       "qtquickeffectmaker" "qtquicktimeline" "qtremoteobjects" "qtscxml" "qtsensors" "qtserialbus"

@@ -1,0 +1,15 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index a2abc7d1b..ffb0e655f 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -169,8 +169,8 @@ else()
+             $<$<COMPILE_LANGUAGE:C,CXX>:-Wmissing-declarations>
+             $<$<COMPILE_LANGUAGE:C,CXX>:-Wshadow>
+             $<$<COMPILE_LANGUAGE:C,CXX>:-Wunused>
+-            # Some compilers could particularly misbehave :)
+-            $<$<COMPILE_LANGUAGE:C,CXX>:-Wno-error-all>)
++            # Keep warnings enabled without promoting them to errors.
++            $<$<COMPILE_LANGUAGE:C,CXX>:-Wno-error>)
+     endif()
+     add_compile_options(
+         $<$<COMPILE_LANGUAGE:C,CXX>:-Wno-attributes>

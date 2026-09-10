@@ -252,9 +252,9 @@ jobs:
          PREV_TAG=$(git tag --sort=-creatordate | grep -vx "${CURRENT_TAG}" | head -n 1 || true)
 
          if [ -z "$PREV_TAG" ]; then
-           COMMITS=$(git log --first-parent --pretty=format:"%h %s (%an)" | grep -v "Merge branch" || true)
+           COMMITS=$(git log --pretty=format:"%h %s (%an)" | grep -v "Merge branch" || true)
          else
-           COMMITS=$(git log "${PREV_TAG}..HEAD" --first-parent --pretty=format:"%h %s (%an)" | grep -v "Merge branch" || true)
+           COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"%h %s (%an)" | grep -v "Merge branch" || true)
          fi
 
          {
@@ -276,9 +276,9 @@ jobs:
         allowUpdates: true              # 같은 날짜에 다시 돌리면 덮어쓰기 허용
         makeLatest: true                # 최신 릴리즈로 표시
         prerelease: false               # 프리 릴리즈로 표시 (원하면 true로 변경)
-        #body: "빌드완료"
-        bodyFile: release_notes.md
-        token: ${{ secrets.GH_PAT }}    # 토큰 사용
+         #body: "빌드완료"
+         bodyFile: release_notes.md
+         token: ${{ secrets.GH_PAT }}    # 토큰 사용
 
   release-official:
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') && github.repository_owner == 'ROCKNIX' && needs.set-envs.outputs.OFFICIAL == 'yes' }}

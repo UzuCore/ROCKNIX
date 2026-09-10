@@ -3,6 +3,7 @@
 
 PKG_NAME="grim"
 PKG_VERSION="1.5.0"
+PKG_SHA256="9e72a98f7621b1f5741b405b8dbd447acf7d300ddb12667ec526db1ce6154eaa"
 PKG_LICENSE="MIT"
 PKG_SITE="https://wayland.emersion.fr/grim/"
 PKG_URL="https://gitlab.freedesktop.org/emersion/grim/-/archive/v${PKG_VERSION}/${PKG_NAME}-v${PKG_VERSION}.tar.gz"

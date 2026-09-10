@@ -2,9 +2,9 @@
 # Copyright (C) 2024-present ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="eden-sa"
-PKG_VERSION="0d9d8064d786b2a44045a395e3a64e980ece9dcd" # 260725
+PKG_VERSION="6589019e6b3e4ab68a748d88b97ace3091a6923a" # 260821
 PKG_LICENSE="GPLv2"
-PKG_DEPENDS_TARGET="toolchain llvm:host SDL3 boost libevdev libdrm ffmpeg zlib zstd alsa-lib qt6 libfmt"
+PKG_DEPENDS_TARGET="toolchain llvm:host SDL3 boost libevdev libdrm ffmpeg zlib zstd opus alsa-lib qt6 libfmt"
 PKG_LONGDESC="Eden is a high-performance and easy-to-use emulator, tailored for enthusiasts and developers alike."
 PKG_SITE="https://github.com/UzuCore/eden"
 PKG_URL="${PKG_SITE}/archive/${PKG_VERSION}.tar.gz"
@@ -25,11 +25,6 @@ fi
 EDEN_LLVM_BIN="${TOOLCHAIN}/bin"
 
 PGO_URL="https://github.com/Eden-CI/PGO/releases/download/v020525/eden.profdata"
-
-post_unpack_target() {
-  find "${PKG_BUILD}" \( -name "CMakeLists.txt" -o -name "*.cmake" \) \
-    -exec sed -i 's/\(-\)\?Werror/-Wno-error/g' {} +
-}
 
 make_target() {
   local PGO_FILE="${PKG_BUILD}/eden.profdata"
@@ -128,12 +123,12 @@ make_target() {
     -DYUZU_CMD=OFF
     -DVulkanHeaders_FORCE_BUNDLED=ON
     -DENABLE_LTO=OFF
+    -DENABLE_WERROR=OFF
+    -DENABLE_LSFG=ON
+    -DOpus_FORCE_SYSTEM=ON
   )
 
   cmake "${tgt_opts[@]}" || return 1
-
-  find . \( -name "*.ninja" -o -name "flags.make" \) \
-    -exec sed -i 's/-Werror/-Wno-error/g' {} + 2>/dev/null
 
   ninja -j$(nproc) || ninja
 }
