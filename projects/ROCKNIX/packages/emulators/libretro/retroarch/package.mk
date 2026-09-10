@@ -130,18 +130,18 @@ makeinstall_target() {
     cp -a ${PKG_BUILD}/libretro-common/audio/dsp_filters/*.dsp ${INSTALL}/usr/share/retroarch/filters/64bit/audio
 
   # General configuration
-  mkdir -p ${INSTALL}/usr/config/retroarch
-    if [ -d "${PKG_DIR}/sources/${DEVICE}" ]; then
-      cp -a ${PKG_DIR}/sources/${DEVICE}/* ${INSTALL}/usr/config/retroarch
-      sed -i \
-          -e 's/menu_driver.*/menu_driver = "ozone"/g' \
-          -e 's/ozone_collapse_sidebar.*/ozone_collapse_sidebar = "true"/g' \
-          -e 's/user_language.*/user_language = "10"/g' \
-          ${INSTALL}/usr/config/retroarch/retroarch.cfg
-    else
-      echo "Configure retroarch for ${DEVICE}"
-      exit 1
-    fi
+  mkdir -p ${INSTALL}/usr/config/retroarch/
+  if [ -d "${PKG_DIR}/sources/${DEVICE}" ]; then
+    cp -rf ${PKG_DIR}/sources/${DEVICE}/* ${INSTALL}/usr/config/retroarch/
+    sed -i \
+        -e 's/menu_driver.*/menu_driver = "ozone"/g' \
+        -e 's/ozone_collapse_sidebar.*/ozone_collapse_sidebar = "true"/g' \
+        -e 's/user_language.*/user_language = "10"/g' \
+        ${INSTALL}/usr/config/retroarch/retroarch.cfg
+  else
+    echo "Configure retroarch for ${DEVICE}"
+    exit 1
+  fi
 
   # Make sure the shader directories exist for overlayfs.
   mkdir -p ${INSTALL}/usr/share/{common,glsl,slang}-shaders

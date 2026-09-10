@@ -18,6 +18,10 @@ case "${DEVICE}" in
     ;;
 esac
 
+if listcontains "${GRAPHIC_DRIVERS}" "freedreno"; then
+  PKG_DEPENDS_TARGET+=" mesa:host"
+fi
+
 get_graphicdrivers
 
 if listcontains "${GRAPHIC_DRIVERS}" "panfrost"; then

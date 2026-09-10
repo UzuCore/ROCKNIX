@@ -13,7 +13,6 @@ PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="Port of Final Burn Neo to Libretro (v0.2.97.38)."
 PKG_TOOLCHAIN="make"
 
-
 pre_configure_target() {
 sed -i "s|LDFLAGS += -static-libgcc -static-libstdc++|LDFLAGS += -static-libgcc|" "${PKG_BUILD}/src/burner/libretro/Makefile"
 

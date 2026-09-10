@@ -8,6 +8,14 @@ PKG_SECTION="emulation" # Do not change to virtual or makeinstall_target will no
 PKG_LONGDESC="Emulation metapackage."
 PKG_TOOLCHAIN="manual"
 
+if [ "${CODEX_SUPPORT}" = "yes" ]; then
+  case ${ARCH} in
+    aarch64|x86_64)
+      PKG_DEPENDS_TARGET+=" bubblewrap ripgrep"
+      ;;
+  esac
+fi
+
 PKG_EMUS="amiberry duckstation-sa flycast-sa gzdoom-sa hatarisa hypseus-singe moonlight mupen64plus-sa openbor pico-8   \
           ppsspp-sa scummvmsa touchhle-sa vice-sa wine yabasanshiro-sa"
 
@@ -184,7 +192,7 @@ makeinstall_target() {
     H700|RK3326|RK3399|RK3576|RK3566|RK3588|SM6115|SM8250|SM8550|SM8650|SM8750)
       add_emu_core amiga retroarch puae2021 true
       add_emu_core amiga retroarch puae false
-       add_emu_core amiga retroarch uae4arm false
+      add_emu_core amiga retroarch uae4arm false
     ;;
     *)
       add_emu_core amiga retroarch puae true
@@ -1708,6 +1716,14 @@ makeinstall_target() {
   add_es_system moonlight
 
   ### Tools
+  if [ "${CODEX_SUPPORT}" = "yes" ]; then
+    case ${ARCH} in
+      aarch64|x86_64)
+        install_script "Install Codex.sh"
+        install_script "Start Codex.sh"
+        ;;
+    esac
+  fi
   add_es_system tools
 
   ### Screenshots

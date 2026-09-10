@@ -51,4 +51,3 @@ makeinstall_target() {
   mkdir -p ${INSTALL}/usr/config/retroarch
     cp -a ${PKG_DIR}/config/* ${INSTALL}/usr/config/retroarch
 }
-

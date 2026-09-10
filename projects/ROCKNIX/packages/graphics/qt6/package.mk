@@ -62,7 +62,7 @@ pre_configure_host() {
 
   # Enable required modules
   # > qtbase qtshadertools qtdeclarative qtsvg qtlanguageserver qttools qtwayland
-  MODULES_TO_ENABLE=("qtbase" "qtshadertools" "qtdeclarative" "qtsvg" "qtlanguageserver" "qtimageformats" "qttools")
+  MODULES_TO_ENABLE=("qtbase" "qtshadertools" "qtdeclarative" "qtsvg" "qtlanguageserver" "qtimageformats" "qttools" "qtwayland" "qtcharts")
   for module in "${MODULES_TO_ENABLE[@]}"; do
     PKG_CMAKE_OPTS_HOST+=" -DBUILD_${module}=ON"
   done
