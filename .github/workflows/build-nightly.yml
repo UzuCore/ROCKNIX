@@ -241,20 +241,13 @@ jobs:
        with:
          pattern: ROCKNIX-update*
          merge-multiple: true
-     - name: Download FBNeo cores
-       uses: actions/download-artifact@v8
-       with:
-         pattern: ROCKNIX-fbneo-*
-         merge-multiple: true
      #- name: get date
        #run: echo "DATE=$(TZ=Asia/Seoul date +'%Y%m%d')" >> $GITHUB_ENV
 
      - name: get date from file
        run: |
-         FILENAME=$(find . -maxdepth 1 -type f \( -name 'ROCKNIX-*.img.gz' -o -name 'ROCKNIX-*.tar' \) -printf '%f\n' | head -n 1)
-         test -n "$FILENAME"
+         FILENAME=$(ls ROCKNIX-* | head -n 1)
          FILE_TIME=$(echo $FILENAME | grep -oE '[0-9]{8,}' | head -n 1)
-         test -n "$FILE_TIME"
          echo "DATE=$FILE_TIME" >> $GITHUB_ENV
 
      - name: Set release metadata
@@ -332,11 +325,6 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           pattern: ROCKNIX-update*
-          merge-multiple: true
-      - name: Download FBNeo cores
-        uses: actions/download-artifact@v8
-        with:
-          pattern: ROCKNIX-fbneo-*
           merge-multiple: true
       - name: get date
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV

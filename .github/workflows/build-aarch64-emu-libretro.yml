@@ -166,24 +166,6 @@ jobs:
       - name: Print space
         run: df -h
 
-      - name: Export FBNeo core
-        shell: bash
-        run: |
-          CORE=$(find "./build.ROCKNIX-${{ inputs.DEVICE }}.aarch64" -type f -path '*/install_*/usr/lib/libretro/fbneo_libretro.so' -print -quit)
-          test -n "$CORE"
-          mkdir -p fbneo-release
-          cp "$CORE" "fbneo-release/ROCKNIX-FBNeo-${{ inputs.DEVICE }}.so"
-          sha256sum "fbneo-release/ROCKNIX-FBNeo-${{ inputs.DEVICE }}.so" > "fbneo-release/ROCKNIX-FBNeo-${{ inputs.DEVICE }}.so.sha256"
-          file "fbneo-release/ROCKNIX-FBNeo-${{ inputs.DEVICE }}.so"
-
-      - name: Upload FBNeo core
-        uses: actions/upload-artifact@v7
-        with:
-          name: ROCKNIX-fbneo-${{ inputs.DEVICE }}
-          path: fbneo-release/ROCKNIX-FBNeo-${{ inputs.DEVICE }}.so*
-          compression-level: 0
-          if-no-files-found: error
-
       - name: Compress directory
         run: | 
           sudo tar --remove-files -cf - \
