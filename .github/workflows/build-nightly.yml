@@ -63,11 +63,6 @@ on:
         required: false
         default: false
         type: boolean
-      release:
-        description: 'Official release'
-        required: false
-        default: false
-        type: boolean
       build_profile:
         description: 'Build profile'
         required: false
@@ -214,9 +209,7 @@ jobs:
   release-nightly:
      if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') && needs.set-envs.outputs.NIGHTLY == 'yes' && github.event_name != 'pull_request' }}
      name: Release to My Repo
-     needs:
-       - set-envs
-       - build-devices
+     needs: build-devices
      runs-on: ubuntu-24.04
      permissions:
        contents: write # 릴리즈 생성을 위해 쓰기 권한 필요
@@ -299,14 +292,12 @@ jobs:
          prerelease: ${{ env.RELEASE_PRERELEASE }}
          #body: "빌드완료"
          bodyFile: release_notes.md
-         token: ${{ github.token }}
+         token: ${{ secrets.GH_PAT }}    # 토큰 사용
 
   release-official:
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') && github.repository_owner == 'ROCKNIX' && needs.set-envs.outputs.OFFICIAL == 'yes' }}
     name: Release official
-    needs:
-      - set-envs
-      - build-devices
+    needs: build-devices
     runs-on: ubuntu-24.04
     steps:
       - name: Maximize build space
