@@ -188,6 +188,17 @@ steam_launch_bigpicture() {
     force_orientation="left"
   fi
 
+  # The DPU inline rotator caps the pre-rotation source at 1088 lines, but the plane advertises
+  # ROTATE_90 as a static capability it cannot qualify per mode. On a rotated panel wider than
+  # that (1440x2560) gamescope keeps scanout rotation, every atomic commit is rejected and the
+  # panel stays black. Render the session at 1080p instead and let the same plane upscale it back
+  # to the mode. The flag only exists in our patched gamescope (patches/0008), and gamescope
+  # exits on an unknown argument, so it must be dropped here if that patch ever goes away.
+  local rotate_clamp=""
+  if [[ "${TRANSFORM}" = "90" || "${TRANSFORM}" = "270" ]] && [ "${W}" -gt 1088 ]; then
+    rotate_clamp="--rotated-output-max-height 1080"
+  fi
+
   if [[ "$1" == *.desktop && -f "$1" && "$(basename "$1")" != "Steam.desktop" ]]; then
     local exec_line
     exec_line=$(grep -m1 '^Exec=' "$1" | cut -d'=' -f2-)
@@ -207,7 +218,7 @@ steam_launch_bigpicture() {
       rm -f "${steam_exit_code_file}"
       GAMESCOPE_MODE_SAVE_FILE="${gamescope_mode_file}" GAMESCOPE_FAKE_OUTPUT_MM=508x286 \
       env -u WAYLAND_DISPLAY LD_LIBRARY_PATH=/storage/.local/share/Steam/lib/aarch64-linux-gnu/ ${EMUPERF} \
-      gamescope $PREFER_OUTPUT -W "$W" -H "$H" -r "$REFRESH_HZ" --xwayland-count 2 --mangoapp --backend drm --force-orientation "${force_orientation}" -e -- \
+      gamescope $PREFER_OUTPUT -W "$W" -H "$H" -r "$REFRESH_HZ" --xwayland-count 2 --mangoapp --backend drm --force-orientation "${force_orientation}" ${rotate_clamp} -e -- \
       /bin/bash -c '
         exit_file="$1"
         shift
@@ -234,7 +245,7 @@ steam_launch_bigpicture() {
     steam_touch_calibration_begin "${force_orientation}"
     trap steam_touch_calibration_end EXIT
     GAMESCOPE_MODE_SAVE_FILE="${gamescope_mode_file}" GAMESCOPE_FAKE_OUTPUT_MM=508x286 env -u WAYLAND_DISPLAY ${EMUPERF} \
-      gamescope $PREFER_OUTPUT -W "$W" -H "$H" -r "$REFRESH_HZ" --xwayland-count 2 --backend drm --force-orientation "${force_orientation}" -- \
+      gamescope $PREFER_OUTPUT -W "$W" -H "$H" -r "$REFRESH_HZ" --xwayland-count 2 --backend drm --force-orientation "${force_orientation}" ${rotate_clamp} -- \
       FEX /usr/bin/steam -nobigpicture -noverifyfiles -nobootstrapupdate -skipinitialbootstrap -norepairfiles -noshaders ${game_uri:+"$game_uri"}
     steam_touch_calibration_end
     trap - EXIT

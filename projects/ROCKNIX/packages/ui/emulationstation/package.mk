@@ -2,8 +2,8 @@
 # Copyright (C) 2024-present ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="emulationstation"
-PKG_VERSION="9d664e2ffa75d0fcfd129c6598318c61b57ff8f7"
-PKG_SHA256="e1639a1d6750c5987caa6b8a31bc560a6b9ed4692ae3f550a4db9e82dbb87daf"
+PKG_VERSION="2e1564402223360a14dc410d61aebaee9ca004b0"
+PKG_SHA256="c0efecc9cb9d3a952c2160a7420fc00c467bde1b28b5f148301cf1f7f28c0e9d"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/ROCKNIX/emulationstation-next"
 PKG_URL="${PKG_SITE}/archive/${PKG_VERSION}.tar.gz"
@@ -20,7 +20,7 @@ PKG_CMAKE_OPTS_TARGET+=" -DROCKNIX=1 \
                          -DUSE_SYSTEM_PUGIXML=1 \
                          -DGLES3=1"
 
-[ "${DEVICE}" = "S922X" ] && PKG_CMAKE_OPTS_TARGET+=" -DBATTERYPLUS=1"
+[ "${BATTERYPLUS_SUPPORT}" = "yes" ] && PKG_CMAKE_OPTS_TARGET+=" -DBATTERYPLUS=1"
 
 pre_configure_target() {
   for key in SCREENSCRAPER_DEV_LOGIN \
