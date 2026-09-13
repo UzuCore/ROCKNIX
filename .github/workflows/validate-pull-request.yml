@@ -21,9 +21,18 @@ jobs:
           fetch-depth: 0
       - name: Validate pull request
         if: github.event_name == 'pull_request'
+        env:
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
         run: |
           # Flag to track if pull request fails validation
           FAILED=0
+
+          # Check for merge-blocked label
+          if echo "$LABELS" | grep -q '"merge-blocked"'; then
+            echo "--------------------------------------------------------"
+            echo "❌ This pull request is marked as merge-blocked."
+            FAILED=1
+          fi
 
           # Get any merge commits in the pull request
           MERGES=$(git log --merges --format='- %h %s' origin/${{ github.base_ref }}..HEAD)

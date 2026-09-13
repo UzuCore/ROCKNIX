@@ -34,6 +34,7 @@ jobs:
       PROJECT: ${{ inputs.PROJECT }}
       DEVICE: ${{ inputs.DEVICE }}
       CODEX_SUPPORT: ${{ inputs.CODEX_SUPPORT }}
+      CODEX_SUFFIX: ${{ inputs.CODEX_SUPPORT == 'yes' && '-CODEX' || '' }}
       ARCH: aarch64
       CACHE_KEY: ccache-aarch64-${{ inputs.DEVICE }}-image-${{ github.sha }}
       DISABLE_COLORS: yes
@@ -132,7 +133,7 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: ROCKNIX-image-${{ inputs.DEVICE }}-${{ env.DATE }}
+          name: ROCKNIX-image-${{ inputs.DEVICE }}-${{ env.DATE }}${{ env.CODEX_SUFFIX }}
           path: |
             target/ROCKNIX-*.img.gz
             target/ROCKNIX-*.img.gz.sha256
@@ -141,7 +142,7 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: ROCKNIX-update-${{ inputs.DEVICE }}-${{ env.DATE }}
+          name: ROCKNIX-update-${{ inputs.DEVICE }}-${{ env.DATE }}${{ env.CODEX_SUFFIX }}
           path: |
             target/ROCKNIX-*.tar
             target/ROCKNIX-*.tar.sha256
