@@ -13,13 +13,12 @@ PKG_LONGDESC="A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/
 PKG_PATCH_DIRS+=" common"
 
 case ${DEVICE} in
-  SM6115|SM8250|SM8550|SM8650|SM8750)
+  SM4450|SM6115|SM8250|SM8550|SM8650|SM8750)
     PKG_PATCH_DIRS+=" qualcomm"
   ;;
-  S922X)
-    PKG_PATCH_DIRS+=" batteryplus"
-  ;;
 esac
+
+[ "${BATTERYPLUS_SUPPORT}" = "yes" ] && PKG_PATCH_DIRS+=" batteryplus"
 
 PKG_PATCH_DIRS+=" ${DEVICE}"
 

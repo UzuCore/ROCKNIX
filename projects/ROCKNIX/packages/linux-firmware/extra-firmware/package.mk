@@ -2,8 +2,8 @@
 # Copyright (C) 2024-present ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="extra-firmware"
-PKG_VERSION="2b7207cfcb80c53c09dc6e04165789ecaf2d3348"
-PKG_SHA256="1c1db6a797f23a3d179904941e4a869679a514c6f43687e20954c5d96cad4f49"
+PKG_VERSION="30c56e2f34af37fe372166b739d6ab277f5155b5"
+PKG_SHA256="b6e422b953fec72666a84c0060f1ac32dd3fce452a6d6311e5051ab923497600"
 PKG_LICENSE="proprietary"
 PKG_SITE="https://github.com/ROCKNIX/extra-firmware"
 PKG_URL="https://github.com/ROCKNIX/extra-firmware/archive/${PKG_VERSION}.tar.gz"
@@ -14,6 +14,7 @@ makeinstall_target() {
   mkdir -p ${INSTALL}/$(get_full_firmware_dir)
 
   case "${DEVICE}" in
+    "SM4450") cp -a SM4450/* ${INSTALL}/$(get_full_firmware_dir) ;;
     "SM6115") cp -a SM6115/* ${INSTALL}/$(get_full_firmware_dir) ;;
     "SM8250") cp -a SM8250/* ${INSTALL}/$(get_full_firmware_dir) ;;
     "SM8550") cp -a SM8550/* ${INSTALL}/$(get_full_firmware_dir) ;;
